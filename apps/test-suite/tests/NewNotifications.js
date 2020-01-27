@@ -1,9 +1,10 @@
 'use strict';
 
 import { Platform } from '@unimodules/core';
+import * as Application from 'expo-application';
 import Constants from 'expo-constants';
-import * as Notifications from 'expo-notifications';
 import * as FileSystem from 'expo-file-system';
+import * as Notifications from 'expo-notifications';
 
 import * as TestUtils from '../TestUtils';
 import { waitFor } from './helpers';
@@ -274,6 +275,46 @@ export async function test(t) {
             thumbnailUri: fileUri,
           },
         });
+      });
+    });
+
+    t.describe('getBadgeCountAsync', () => {
+      t.it('resolves with an integer', async () => {
+        const badgeCount = await Notifications.getBadgeCountAsync();
+        t.expect(typeof badgeCount).toBe('number');
+      });
+    });
+
+    const unsupportedDevices = [
+      // If setBadgeCountAsync tests fail on your device,
+      // add it to the list, so the test doesn't show up
+      // as failed - we know ShortcutBadger doesn't work
+      // on some devices and there's no reason to treat
+      // it as a test fail.
+      'a3d5c92c36fa07bc', // Nokia 1 Plus of Software Mansion
+    ];
+    const currentDeviceId = Application.androidId;
+    const describeOnSupportedDevices = unsupportedDevices.includes(currentDeviceId)
+      ? t.xdescribe
+      : t.describe;
+    describeOnSupportedDevices('setBadgeCountAsync', () => {
+      t.it('sets a counter, retrievable with getBadgeCountAsync', async () => {
+        try {
+          const randomCounter = Math.ceil(Math.random() * 9) + 1;
+          await Notifications.setBadgeCountAsync(randomCounter);
+          const badgeCount = await Notifications.getBadgeCountAsync();
+          t.expect(badgeCount).toBe(randomCounter);
+        } catch (error) {
+          console.info(`ID of your device is '${currentDeviceId}'.`);
+          throw error;
+        }
+      });
+
+      t.it('clears the counter', async () => {
+        const clearingCounter = 0;
+        await Notifications.setBadgeCountAsync(0);
+        const badgeCount = await Notifications.getBadgeCountAsync();
+        t.expect(badgeCount).toBe(clearingCounter);
       });
     });
   });
