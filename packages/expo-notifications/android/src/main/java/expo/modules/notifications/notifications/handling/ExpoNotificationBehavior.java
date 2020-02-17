@@ -18,29 +18,12 @@ public class ExpoNotificationBehavior extends NotificationBehavior {
   private static final String SHOULD_SET_BADGE_KEY = "shouldSetBadge";
   private static final String PRIORITY_KEY = "priority";
 
-  private ReadableArguments mArguments;
-
   ExpoNotificationBehavior(ReadableArguments arguments) {
-    mArguments = arguments;
-  }
-
-  @Override
-  public boolean shouldShowAlert() {
-    return mArguments.getBoolean(SHOULD_SHOW_ALERT_KEY);
-  }
-
-  @Override
-  public boolean shouldPlaySound() {
-    return mArguments.getBoolean(SHOULD_PLAY_SOUND_KEY);
-  }
-
-  @Override
-  public boolean shouldSetBadge() {
-    return mArguments.getBoolean(SHOULD_SET_BADGE_KEY);
-  }
-
-  @Override
-  public String getPriorityOverride() {
-    return mArguments.getString(PRIORITY_KEY);
+    super(
+        arguments.getBoolean(SHOULD_SHOW_ALERT_KEY),
+        arguments.getBoolean(SHOULD_PLAY_SOUND_KEY),
+        arguments.getBoolean(SHOULD_SET_BADGE_KEY),
+        arguments.getString(PRIORITY_KEY)
+    );
   }
 }
