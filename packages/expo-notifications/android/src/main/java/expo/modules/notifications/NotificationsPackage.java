@@ -13,6 +13,7 @@ import java.util.List;
 import expo.modules.notifications.installationid.InstallationIdProvider;
 import expo.modules.notifications.notifications.NotificationManager;
 import expo.modules.notifications.notifications.channels.ExpoNotificationChannelsManager;
+import expo.modules.notifications.notifications.channels.NotificationChannelGroupManagerModule;
 import expo.modules.notifications.notifications.channels.NotificationChannelManagerModule;
 import expo.modules.notifications.notifications.emitting.NotificationsEmitter;
 import expo.modules.notifications.notifications.handling.NotificationsHandler;
@@ -43,7 +44,8 @@ public class NotificationsPackage extends BasePackage {
         new InstallationIdProvider(context),
         new NotificationPermissionsModule(context),
         new NotificationChannelManagerModule(context),
-        new ExpoNotificationPresentationModule(context)
+        new ExpoNotificationPresentationModule(context),
+        new NotificationChannelGroupManagerModule(context)
     );
   }
 
