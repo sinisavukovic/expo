@@ -276,6 +276,111 @@ export async function test(t) {
         });
       });
     });
+
+    t.describe('getAllScheduledNotificationsAsync', () => {
+      const identifier = 'test-scheduled-notification';
+      const notification = { title: 'Scheduled notification' };
+
+      t.afterEach(async () => {
+        await Notifications.cancelScheduledNotificationAsync(identifier);
+      });
+
+      t.it('resolves with an Array', async () => {
+        const notifications = await Notifications.getAllScheduledNotificationsAsync();
+        t.expect(notifications).toEqual(t.jasmine.arrayContaining([]));
+      });
+
+      t.it('contains a scheduled notification', async () => {
+        const trigger = {
+          seconds: 10,
+        };
+        await Notifications.scheduleNotificationAsync(identifier, notification, trigger);
+        const notifications = await Notifications.getAllScheduledNotificationsAsync();
+        t.expect(notifications).toContain(
+          t.jasmine.objectContaining({
+            identifier,
+            notification,
+            trigger: {
+              repeats: false,
+              value: trigger.seconds * 1000,
+              type: 'interval',
+            },
+          })
+        );
+      });
+
+      t.it('does not contain a canceled notification', async () => {
+        const trigger = {
+          seconds: 10,
+        };
+        await Notifications.scheduleNotificationAsync(identifier, notification, trigger);
+        await Notifications.cancelScheduledNotificationAsync(identifier);
+        const notifications = await Notifications.getAllScheduledNotificationsAsync();
+        t.expect(notifications).not.toContain(t.jasmine.objectContaining({ identifier }));
+      });
+    });
+
+    t.describe('scheduleNotificationAsync', () => {
+      const identifier = 'test-scheduled-notification';
+      const notification = { title: 'Scheduled notification' };
+
+      t.afterEach(async () => {
+        await Notifications.cancelScheduledNotificationAsync(identifier);
+      });
+
+      t.it(
+        'triggers a notification which emits an event',
+        async () => {
+          const notificationReceivedSpy = t.jasmine.createSpy('notificationReceived');
+          const subscription = Notifications.addNotificationReceivedListener(
+            notificationReceivedSpy
+          );
+          await Notifications.scheduleNotificationAsync(identifier, notification, { seconds: 5 });
+          await waitFor(6000);
+          t.expect(notificationReceivedSpy).toHaveBeenCalled();
+          subscription.remove();
+        },
+        10000
+      );
+
+      t.it(
+        'triggers a notification which triggers the handler',
+        async () => {
+          let notification = undefined;
+          Notifications.setNotificationHandler({
+            handleNotification: async event => {
+              notification = event;
+              return {
+                shouldShowAlert: true,
+              };
+            },
+          });
+          await Notifications.scheduleNotificationAsync(identifier, notification, { seconds: 5 });
+          await waitFor(6000);
+          t.expect(notification).toBeDefined();
+          Notifications.setNotificationHandler(null);
+        },
+        10000
+      );
+
+      t.it(
+        'triggers a repeating notification which emits events',
+        async () => {
+          let timesSpyHasBeenCalled = 0;
+          const subscription = Notifications.addNotificationReceivedListener(() => {
+            timesSpyHasBeenCalled += 1;
+          });
+          await Notifications.scheduleNotificationAsync(identifier, notification, {
+            seconds: 5,
+            repeats: true,
+          });
+          await waitFor(12000);
+          t.expect(timesSpyHasBeenCalled).toBeGreaterThan(1);
+          subscription.remove();
+        },
+        16000
+      );
+    });
   });
 }
 
