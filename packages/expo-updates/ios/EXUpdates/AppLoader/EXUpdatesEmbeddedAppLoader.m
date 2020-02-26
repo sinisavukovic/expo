@@ -46,8 +46,8 @@ NSString * const kEXUpdatesEmbeddedBundleFileType = @"bundle";
   if ([[NSFileManager defaultManager] fileExistsAtPath:[destinationUrl path]]) {
     [self handleAssetDownloadAlreadyExists:asset];
   } else {
-    NSAssert(asset.nsBundleFilename, @"embedded asset nsBundleFilename must be nonnull");
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:asset.nsBundleFilename ofType:asset.type];
+    NSAssert(asset.mainBundleFilename, @"embedded asset mainBundleFilename must be nonnull");
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:asset.mainBundleFilename ofType:asset.type];
     NSAssert(bundlePath, @"NSBundle must contain the expected assets");
 
     NSError *err;

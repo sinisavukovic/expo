@@ -26,7 +26,7 @@ static NSString * const kEXUpdatesErrorLogFile = @"expo-error.log";
     
     NSMutableDictionary *assetFilesMap = [NSMutableDictionary new];
     for (EXUpdatesAsset *asset in _launchedUpdate.assets) {
-      NSURL *localUrl = [[NSBundle mainBundle] URLForResource:asset.nsBundleFilename withExtension:asset.type];
+      NSURL *localUrl = [[NSBundle mainBundle] URLForResource:asset.mainBundleFilename withExtension:asset.type];
       if (localUrl && asset.localAssetsKey) {
         [assetFilesMap setObject:localUrl.absoluteString forKey:asset.localAssetsKey];
       }

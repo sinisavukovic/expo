@@ -8,7 +8,7 @@
 @property (nonatomic, strong) NSURL * _Nonnull url;
 @property (nonatomic, strong) NSString * _Nonnull type;
 @property (nonatomic, strong) NSDictionary * _Nullable metadata;
-@property (nonatomic, strong) NSString * _Nullable nsBundleFilename; // used for embedded assets
+@property (nonatomic, strong) NSString * _Nullable mainBundleFilename; // used for embedded assets
 @property (nonatomic, assign) BOOL isLaunchAsset;
 
 /**

@@ -110,8 +110,8 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
         }
       }
 
-      if (matchingAsset && matchingAsset.nsBundleFilename) {
-        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:matchingAsset.nsBundleFilename ofType:matchingAsset.type];
+      if (matchingAsset && matchingAsset.mainBundleFilename) {
+        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:matchingAsset.mainBundleFilename ofType:matchingAsset.type];
         NSError *error;
         if ([[NSFileManager defaultManager] copyItemAtPath:bundlePath toPath:[assetLocalUrl path] error:&error]) {
           assetFileExists = YES;

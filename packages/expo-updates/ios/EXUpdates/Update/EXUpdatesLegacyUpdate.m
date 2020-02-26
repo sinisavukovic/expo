@@ -52,7 +52,7 @@ static NSString * const kEXUpdatesExpoTestDomain = @"expo.test";
   NSMutableArray<EXUpdatesAsset *>*processedAssets = [NSMutableArray new];
   EXUpdatesAsset *jsBundleAsset = [[EXUpdatesAsset alloc] initWithUrl:bundleUrl type:kEXUpdatesEmbeddedBundleFileType];
   jsBundleAsset.isLaunchAsset = YES;
-  jsBundleAsset.nsBundleFilename = kEXUpdatesEmbeddedBundleFilename;
+  jsBundleAsset.mainBundleFilename = kEXUpdatesEmbeddedBundleFilename;
   jsBundleAsset.filename = [NSString stringWithFormat:@"%@.%@",
                               [EXUpdatesUtils sha256WithData:[[bundleUrl absoluteString] dataUsingEncoding:NSUTF8StringEncoding]],
                               kEXUpdatesEmbeddedBundleFileType];
@@ -82,7 +82,7 @@ static NSString * const kEXUpdatesExpoTestDomain = @"expo.test";
     NSURL *url = [bundledAssetBaseUrl URLByAppendingPathComponent:hash];
 
     EXUpdatesAsset *asset = [[EXUpdatesAsset alloc] initWithUrl:url type:(NSString *)type];
-    asset.nsBundleFilename = filename;
+    asset.mainBundleFilename = filename;
 
     asset.filename = [NSString stringWithFormat:@"%@.%@",
                         [EXUpdatesUtils sha256WithData:[[url absoluteString] dataUsingEncoding:NSUTF8StringEncoding]],

@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
   NSMutableArray<EXUpdatesAsset *>*processedAssets = [NSMutableArray new];
   EXUpdatesAsset *jsBundleAsset = [[EXUpdatesAsset alloc] initWithUrl:bundleUrl type:kEXUpdatesEmbeddedBundleFileType];
   jsBundleAsset.isLaunchAsset = YES;
-  jsBundleAsset.nsBundleFilename = kEXUpdatesEmbeddedBundleFilename;
+  jsBundleAsset.mainBundleFilename = kEXUpdatesEmbeddedBundleFilename;
   jsBundleAsset.filename = [NSString stringWithFormat:@"%@.%@",
                               [EXUpdatesUtils sha256WithData:[[bundleUrl absoluteString] dataUsingEncoding:NSUTF8StringEncoding]],
                               kEXUpdatesEmbeddedBundleFileType];
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
     id urlString = assetDict[@"url"];
     id type = assetDict[@"type"];
     id metadata = assetDict[@"metadata"];
-    id nsBundleFilename = assetDict[@"nsBundleFilename"];
+    id mainBundleFilename = assetDict[@"mainBundleFilename"];
     NSAssert(urlString && [urlString isKindOfClass:[NSString class]], @"asset url should be a nonnull string");
     NSAssert(type && [type isKindOfClass:[NSString class]], @"asset type should be a nonnull string");
     NSURL *url = [NSURL URLWithString:(NSString *)urlString];
@@ -61,9 +61,9 @@ NS_ASSUME_NONNULL_BEGIN
       asset.metadata = (NSDictionary *)metadata;
     }
 
-    if (nsBundleFilename) {
-      NSAssert([nsBundleFilename isKindOfClass:[NSString class]], @"asset localPath should be a string");
-      asset.nsBundleFilename = (NSString *)nsBundleFilename;
+    if (mainBundleFilename) {
+      NSAssert([mainBundleFilename isKindOfClass:[NSString class]], @"asset localPath should be a string");
+      asset.mainBundleFilename = (NSString *)mainBundleFilename;
     }
 
     asset.filename = [NSString stringWithFormat:@"%@.%@",
