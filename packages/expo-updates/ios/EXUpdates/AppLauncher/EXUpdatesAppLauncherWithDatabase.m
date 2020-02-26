@@ -79,7 +79,7 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
           _launchAssetUrl = assetLocalUrl;
         } else {
           if (asset.localAssetsKey) {
-            [_assetFilesMap setObject:assetLocalUrl.absoluteString forKey:asset.localAssetsKey];
+            _assetFilesMap[asset.localAssetsKey] = assetLocalUrl.absoluteString;
           }
         }
       }
@@ -171,7 +171,7 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
     _launchAssetUrl = localUrl;
   } else {
     if (asset.localAssetsKey) {
-      [_assetFilesMap setObject:localUrl.absoluteString forKey:asset.localAssetsKey];
+      _assetFilesMap[asset.localAssetsKey] = localUrl.absoluteString;
     }
   }
 
