@@ -116,7 +116,7 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
         if ([[NSFileManager defaultManager] copyItemAtPath:bundlePath toPath:[assetLocalUrl path] error:&error]) {
           assetFileExists = YES;
         } else {
-          NSLog(@"Error copying asset: %@", error.localizedDescription);
+          NSLog(@"Error copying embedded asset: %@", error.localizedDescription);
         }
       }
     }
@@ -139,7 +139,7 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
         // so we want to propagate this error
         self->_launchAssetError = error;
       }
-      [self _assetDownloadDidError:error];
+      [self _assetDownloadDidFinish:asset withError:error];
     }];
   }
 
@@ -163,7 +163,7 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
   [[EXUpdatesAppController sharedInstance].database updateAsset:asset error:&error];
   if (error) {
     [_lock unlock];
-    [self _assetDownloadDidError:error];
+    [self _assetDownloadDidFinish:asset withError:error];
     return;
   }
 
@@ -182,9 +182,9 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
   [_lock unlock];
 }
 
-- (void)_assetDownloadDidError:(NSError *)error
+- (void)_assetDownloadDidFinish:(EXUpdatesAsset *)asset withError:(NSError *)error
 {
-  NSLog(@"Failed to load missing asset: %@", error.localizedDescription);
+  NSLog(@"Failed to load missing asset with URL %@: %@", asset.url.absoluteString, error.localizedDescription);
   [_lock lock];
   _assetsToDownloadFinished++;
   if (_assetsToDownloadFinished == _assetsToDownload) {

@@ -70,7 +70,7 @@ static NSString * const kEXUpdatesErrorLogFile = @"expo-error.log";
   NSString *localizedFailureReason = error.localizedFailureReason;
   NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
   
-  NSMutableString *serialization = [[NSString stringWithFormat:@"Date: %f\nDomain: %@\nCode: %li\nDescription: %@",
+  NSMutableString *serialization = [[NSString stringWithFormat:@"Time: %f\nDomain: %@\nCode: %li\nDescription: %@",
                                     [[NSDate date] timeIntervalSince1970] * 1000,
                                     error.domain,
                                     (long)error.code,
