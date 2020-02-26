@@ -168,17 +168,17 @@ static NSString * const kEXUpdatesAppControllerErrorDomain = @"EXUpdatesAppContr
   }
 }
 
-- (EXUpdatesUpdate * _Nullable)launchedUpdate
+- (nullable EXUpdatesUpdate *)launchedUpdate
 {
   return _launcher.launchedUpdate ?: nil;
 }
 
-- (NSURL * _Nullable)launchAssetUrl
+- (nullable NSURL *)launchAssetUrl
 {
   return _launcher.launchAssetUrl ?: nil;
 }
 
-- (NSDictionary * _Nullable)assetFilesMap
+- (nullable NSDictionary *)assetFilesMap
 {
   return _launcher.assetFilesMap ?: nil;
 }
@@ -214,7 +214,7 @@ static NSString * const kEXUpdatesAppControllerErrorDomain = @"EXUpdatesAppContr
   [self _maybeFinish];
 }
 
-- (NSError * _Nullable)_initializeUpdatesDirectory
+- (nullable NSError *)_initializeUpdatesDirectory
 {
   NSAssert(!_updatesDirectory, @"EXUpdatesAppController:_initializeUpdatesDirectory should only be called once per instance");
 
@@ -321,7 +321,7 @@ static NSString * const kEXUpdatesAppControllerErrorDomain = @"EXUpdatesAppContr
   return shouldStartLoadingUpdate;
 }
 
-- (void)appLoader:(EXUpdatesAppLoader *)appLoader didFinishLoadingUpdate:(EXUpdatesUpdate * _Nullable)update
+- (void)appLoader:(EXUpdatesAppLoader *)appLoader didFinishLoadingUpdate:(nullable EXUpdatesUpdate *)update
 {
   dispatch_async(dispatch_get_main_queue(), ^{
     if (self->_timer) {

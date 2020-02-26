@@ -12,7 +12,7 @@ NSString * const kEXUpdatesEmbeddedBundleFileType = @"bundle";
 
 @implementation EXUpdatesEmbeddedAppLoader
 
-+ (EXUpdatesUpdate * _Nullable)embeddedManifest
++ (nullable EXUpdatesUpdate *)embeddedManifest
 {
   static EXUpdatesUpdate *embeddedManifest;
   static dispatch_once_t once;

@@ -23,15 +23,15 @@ typedef NS_ENUM(NSInteger, EXUpdatesDatabaseHashType) {
 - (void)markUpdateReadyWithId:(NSUUID *)updateId error:(NSError ** _Nullable)error;
 
 - (void)markUpdateForDeletionWithId:(NSUUID *)updateId error:(NSError ** _Nullable)error;
-- (NSArray<NSDictionary *>* _Nullable)markUnusedAssetsForDeletionWithError:(NSError ** _Nullable)error;
+- (nullable NSArray<NSDictionary *>*)markUnusedAssetsForDeletionWithError:(NSError ** _Nullable)error;
 - (void)deleteAssetsWithIds:(NSArray<NSNumber *>*)assetIds error:(NSError ** _Nullable)error;
 - (void)deleteUnusedUpdatesWithError:(NSError ** _Nullable)error;
 
-- (NSArray<EXUpdatesUpdate *>* _Nullable)allUpdatesWithError:(NSError ** _Nullable)error;
-- (NSArray<EXUpdatesUpdate *>* _Nullable)launchableUpdatesWithError:(NSError ** _Nullable)error;
-- (EXUpdatesUpdate * _Nullable)updateWithId:(NSUUID *)updateId error:(NSError ** _Nullable)error;
-- (EXUpdatesAsset * _Nullable)launchAssetWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error;
-- (NSArray<EXUpdatesAsset *>* _Nullable)assetsWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error;
+- (nullable NSArray<EXUpdatesUpdate *>*)allUpdatesWithError:(NSError ** _Nullable)error;
+- (nullable NSArray<EXUpdatesUpdate *>*)launchableUpdatesWithError:(NSError ** _Nullable)error;
+- (nullable EXUpdatesUpdate *)updateWithId:(NSUUID *)updateId error:(NSError ** _Nullable)error;
+- (nullable EXUpdatesAsset *)launchAssetWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error;
+- (nullable NSArray<EXUpdatesAsset *>*)assetsWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error;
 
 @end
 

@@ -12,7 +12,7 @@ typedef void (^EXUpdatesAppLauncherCompletionBlock)(NSError * _Nullable error, B
 - (void)launchUpdateWithSelectionPolicy:(id<EXUpdatesSelectionPolicy>)selectionPolicy
                              completion:(EXUpdatesAppLauncherCompletionBlock)completion;
 
-+ (EXUpdatesUpdate * _Nullable)launchableUpdateWithSelectionPolicy:(id<EXUpdatesSelectionPolicy>)selectionPolicy;
++ (nullable EXUpdatesUpdate *)launchableUpdateWithSelectionPolicy:(id<EXUpdatesSelectionPolicy>)selectionPolicy;
 
 @end
 

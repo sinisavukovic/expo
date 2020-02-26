@@ -37,14 +37,14 @@ typedef void (^EXUpdatesAppControllerRelaunchCompletionBlock)(BOOL success);
  Will be null until the EXUpdatesAppController delegate method is called.
  This should be provided in the `sourceURLForBridge:` method of RCTBridgeDelegate.
  */
-@property (nonatomic, readonly, strong) NSURL * _Nullable launchAssetUrl;
+@property (nullable, nonatomic, readonly, strong) NSURL *launchAssetUrl;
 /**
  A dictionary of the locally downloaded assets for the current update. Keys are the remote URLs
  of the assets and values are local paths. This should be exported by the Updates JS module and
  can be used by `expo-asset` or a similar module to override React Native's asset resolution and
  use the locally downloaded assets.
  */
-@property (nonatomic, readonly, strong) NSDictionary * _Nullable assetFilesMap;
+@property (nullable, nonatomic, readonly, strong) NSDictionary *assetFilesMap;
 
 /**
  for internal use in EXUpdates
@@ -54,7 +54,7 @@ typedef void (^EXUpdatesAppControllerRelaunchCompletionBlock)(BOOL success);
 @property (nonatomic, readonly) NSURL *updatesDirectory;
 @property (nonatomic, readonly, assign) BOOL isEnabled;
 @property (nonatomic, readonly, assign) BOOL isEmergencyLaunch;
-@property (nonatomic, readonly, strong) EXUpdatesUpdate * _Nullable launchedUpdate;
+@property (nullable, nonatomic, readonly, strong) EXUpdatesUpdate *launchedUpdate;
 
 + (instancetype)sharedInstance;
 

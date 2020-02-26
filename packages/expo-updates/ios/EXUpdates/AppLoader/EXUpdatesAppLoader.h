@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol EXUpdatesAppLoaderDelegate <NSObject>
 
 - (BOOL)appLoader:(EXUpdatesAppLoader *)appLoader shouldStartLoadingUpdate:(EXUpdatesUpdate *)update;
-- (void)appLoader:(EXUpdatesAppLoader *)appLoader didFinishLoadingUpdate:(EXUpdatesUpdate * _Nullable)update;
+- (void)appLoader:(EXUpdatesAppLoader *)appLoader didFinishLoadingUpdate:(nullable EXUpdatesUpdate *)update;
 - (void)appLoader:(EXUpdatesAppLoader *)appLoader didFailWithError:(NSError *)error;
 
 @end

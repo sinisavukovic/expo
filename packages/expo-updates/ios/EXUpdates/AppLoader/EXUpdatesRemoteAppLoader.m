@@ -25,9 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadUpdateFromUrl:(NSURL *)url
 {
-  [_downloader downloadManifestFromURL:url successBlock:^(EXUpdatesUpdate * _Nonnull update) {
+  [_downloader downloadManifestFromURL:url successBlock:^(EXUpdatesUpdate *update) {
     [self startLoadingFromManifest:update];
-  } errorBlock:^(NSError * _Nonnull error, NSURLResponse * _Nonnull response) {
+  } errorBlock:^(NSError *error, NSURLResponse *response) {
     if (self.delegate) {
       [self.delegate appLoader:self didFailWithError:error];
     }
@@ -42,9 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
     // file already exists, we don't need to download it again
     [self handleAssetDownloadAlreadyExists:asset];
   } else {
-    [_downloader downloadFileFromURL:asset.url toPath:[urlOnDisk path] successBlock:^(NSData * data, NSURLResponse * response) {
+    [_downloader downloadFileFromURL:asset.url toPath:[urlOnDisk path] successBlock:^(NSData *data, NSURLResponse *response) {
       [self handleAssetDownloadWithData:data response:response asset:asset];
-    } errorBlock:^(NSError * error, NSURLResponse * response) {
+    } errorBlock:^(NSError *error, NSURLResponse *response) {
       [self handleAssetDownloadWithError:error asset:asset];
     }];
   }

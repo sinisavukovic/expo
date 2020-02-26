@@ -71,7 +71,7 @@ NSTimeInterval const kEXUpdatesDefaultTimeoutInterval = 60;
                                                          cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                      timeoutInterval:kEXUpdatesDefaultTimeoutInterval];
   [self _setManifestHTTPHeaderFields:request];
-  [self _downloadDataWithRequest:request successBlock:^(NSData * data, NSURLResponse * response) {
+  [self _downloadDataWithRequest:request successBlock:^(NSData *data, NSURLResponse *response) {
     NSError *err;
     id manifest = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&err];
     NSAssert(!err && manifest && [manifest isKindOfClass:[NSDictionary class]], @"manifest should be a valid JSON object");
@@ -95,7 +95,7 @@ NSTimeInterval const kEXUpdatesDefaultTimeoutInterval = 60;
                                                     errorBlock(error, response);
                                                   }
                                                 }
-                                    errorBlock:^(NSError * _Nonnull error) {
+                                    errorBlock:^(NSError *error) {
                                                   errorBlock(error, response);
                                                 }
       ];

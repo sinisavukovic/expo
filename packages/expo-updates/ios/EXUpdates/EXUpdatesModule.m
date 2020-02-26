@@ -65,7 +65,7 @@ UM_EXPORT_METHOD_AS(checkForUpdateAsync,
   }
 
   EXUpdatesFileDownloader *fileDownloader = [[EXUpdatesFileDownloader alloc] init];
-  [fileDownloader downloadManifestFromURL:[EXUpdatesConfig sharedInstance].remoteUrl successBlock:^(EXUpdatesUpdate * _Nonnull update) {
+  [fileDownloader downloadManifestFromURL:[EXUpdatesConfig sharedInstance].remoteUrl successBlock:^(EXUpdatesUpdate *update) {
     EXUpdatesUpdate *launchedUpdate = [EXUpdatesAppController sharedInstance].launchedUpdate;
     id<EXUpdatesSelectionPolicy> selectionPolicy = [EXUpdatesAppController sharedInstance].selectionPolicy;
     if ([selectionPolicy shouldLoadNewUpdate:update withLaunchedUpdate:launchedUpdate]) {
@@ -78,7 +78,7 @@ UM_EXPORT_METHOD_AS(checkForUpdateAsync,
         @"isAvailable": @(NO)
       });
     }
-  } errorBlock:^(NSError * _Nonnull error, NSURLResponse * _Nonnull response) {
+  } errorBlock:^(NSError *error, NSURLResponse *response) {
     reject(@"ERR_UPDATES_CHECK", error.localizedDescription, error);
   }];
 }
@@ -114,7 +114,7 @@ UM_EXPORT_METHOD_AS(fetchUpdateAsync,
   return [selectionPolicy shouldLoadNewUpdate:update withLaunchedUpdate:launchedUpdate];
 }
 
-- (void)appLoader:(EXUpdatesAppLoader *)appLoader didFinishLoadingUpdate:(EXUpdatesUpdate * _Nullable)update
+- (void)appLoader:(EXUpdatesAppLoader *)appLoader didFinishLoadingUpdate:(nullable EXUpdatesUpdate *)update
 {
   if (_fetchUpdateResolver) {
     if (update) {

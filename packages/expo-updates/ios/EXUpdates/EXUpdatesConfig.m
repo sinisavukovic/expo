@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite, strong) NSNumber *launchWaitMs;
 @property (nonatomic, readwrite, assign) EXUpdatesCheckAutomaticallyConfig checkOnLaunch;
 
-@property (nonatomic, readwrite, strong) NSString * _Nullable sdkVersion;
-@property (nonatomic, readwrite, strong) NSString * _Nullable runtimeVersion;
+@property (nullable, nonatomic, readwrite, strong) NSString *sdkVersion;
+@property (nullable, nonatomic, readwrite, strong) NSString *runtimeVersion;
 
 @end
 

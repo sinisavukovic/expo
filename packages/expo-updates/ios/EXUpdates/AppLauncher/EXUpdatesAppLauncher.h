@@ -6,9 +6,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol EXUpdatesAppLauncher
 
-@property (nonatomic, strong, readonly) EXUpdatesUpdate * _Nullable launchedUpdate;
-@property (nonatomic, strong, readonly) NSURL * _Nullable launchAssetUrl;
-@property (nonatomic, strong, readonly) NSDictionary * _Nullable assetFilesMap;
+@property (nullable, nonatomic, strong, readonly) EXUpdatesUpdate *launchedUpdate;
+@property (nullable, nonatomic, strong, readonly) NSURL *launchAssetUrl;
+@property (nullable, nonatomic, strong, readonly) NSDictionary *assetFilesMap;
 
 @end
 

@@ -15,8 +15,8 @@ typedef NS_ENUM(NSInteger, EXUpdatesCheckAutomaticallyConfig) {
 @property (nonatomic, readonly) NSNumber *launchWaitMs;
 @property (nonatomic, readonly) EXUpdatesCheckAutomaticallyConfig checkOnLaunch;
 
-@property (nonatomic, readonly) NSString * _Nullable sdkVersion;
-@property (nonatomic, readonly) NSString * _Nullable runtimeVersion;
+@property (nullable, nonatomic, readonly) NSString *sdkVersion;
+@property (nullable, nonatomic, readonly) NSString *runtimeVersion;
 
 @property (nonatomic, readonly) BOOL usesLegacyManifest;
 

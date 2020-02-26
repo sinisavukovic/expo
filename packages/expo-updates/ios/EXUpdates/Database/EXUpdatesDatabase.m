@@ -272,7 +272,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   [self _executeSql:sql withArgs:@[updateId] error:error];
 }
 
-- (NSArray<NSDictionary *>* _Nullable)markUnusedAssetsForDeletionWithError:(NSError ** _Nullable)error
+- (nullable NSArray<NSDictionary *>*)markUnusedAssetsForDeletionWithError:(NSError ** _Nullable)error
 {
   // the simplest way to mark the assets we want to delete
   // is to mark all assets for deletion, then go back and unmark
@@ -325,7 +325,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
 
 # pragma mark - select
 
-- (NSArray<EXUpdatesUpdate *>* _Nullable)allUpdatesWithError:(NSError ** _Nullable)error
+- (nullable NSArray<EXUpdatesUpdate *>*)allUpdatesWithError:(NSError ** _Nullable)error
 {
   NSString * const sql = @"SELECT * FROM updates;";
   NSArray<NSDictionary *>* rows = [self _executeSql:sql withArgs:nil error:error];
@@ -340,7 +340,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   return launchableUpdates;
 }
 
-- (NSArray<EXUpdatesUpdate *>* _Nullable)launchableUpdatesWithError:(NSError ** _Nullable)error
+- (nullable NSArray<EXUpdatesUpdate *>*)launchableUpdatesWithError:(NSError ** _Nullable)error
 {
   NSString *sql = [NSString stringWithFormat:@"SELECT *\
   FROM updates\
@@ -358,7 +358,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   return launchableUpdates;
 }
 
-- (EXUpdatesUpdate * _Nullable)updateWithId:(NSUUID *)updateId error:(NSError ** _Nullable)error
+- (nullable EXUpdatesUpdate *)updateWithId:(NSUUID *)updateId error:(NSError ** _Nullable)error
 {
   NSString * const sql = @"SELECT *\
   FROM updates\
@@ -372,7 +372,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   }
 }
 
-- (EXUpdatesAsset * _Nullable)launchAssetWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error
+- (nullable EXUpdatesAsset *)launchAssetWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error
 {
   NSString * const sql = @"SELECT url, type, relative_path, metadata\
   FROM updates\
@@ -397,7 +397,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   }
 }
 
-- (NSArray<EXUpdatesAsset *>* _Nullable)assetsWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error
+- (nullable NSArray<EXUpdatesAsset *>*)assetsWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error
 {
   NSString * const sql = @"SELECT asset_id, url, type, relative_path, assets.metadata, launch_asset_id\
   FROM assets\
@@ -430,7 +430,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
 
 # pragma mark - helper methods
 
-- (NSArray<NSDictionary *>* _Nullable)_executeSql:(NSString *)sql withArgs:(NSArray * _Nullable)args error:(NSError ** _Nullable)error
+- (nullable NSArray<NSDictionary *>*)_executeSql:(NSString *)sql withArgs:(nullable NSArray *)args error:(NSError ** _Nullable)error
 {
   NSAssert(_db, @"Missing database handle");
   sqlite3_stmt *stmt;
@@ -519,7 +519,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
 - (BOOL)_bindStatement:(sqlite3_stmt *)stmt withArgs:(NSArray *)args
 {
   __block BOOL success = YES;
-  [args enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+  [args enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
     if ([obj isKindOfClass:[NSUUID class]]) {
       uuid_t bytes;
       [((NSUUID *)obj) getUUIDBytes:bytes];

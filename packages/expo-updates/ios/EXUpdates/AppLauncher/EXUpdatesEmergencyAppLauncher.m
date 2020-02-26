@@ -10,9 +10,9 @@ static NSString * const kEXUpdatesErrorLogFile = @"expo-error.log";
 
 @interface EXUpdatesEmergencyAppLauncher ()
 
-@property (nonatomic, strong, readwrite) EXUpdatesUpdate * _Nullable launchedUpdate;
-@property (nonatomic, strong, readwrite) NSURL * _Nullable launchAssetUrl;
-@property (nonatomic, strong, readwrite) NSMutableDictionary * _Nullable assetFilesMap;
+@property (nullable, nonatomic, strong, readwrite) EXUpdatesUpdate *launchedUpdate;
+@property (nullable, nonatomic, strong, readwrite) NSURL *launchAssetUrl;
+@property (nullable, nonatomic, strong, readwrite) NSMutableDictionary *assetFilesMap;
 
 @end
 
@@ -39,7 +39,7 @@ static NSString * const kEXUpdatesErrorLogFile = @"expo-error.log";
   });
 }
 
-+ (NSString * _Nullable)consumeError;
++ (nullable NSString *)consumeError;
 {
   NSString *errorLogFilePath = [[self class] _errorLogFilePath]; 
   NSData *data = [NSData dataWithContentsOfFile:errorLogFilePath options:kNilOptions error:nil];

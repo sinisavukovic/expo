@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EXUpdatesAppLauncherWithDatabase ()
 
-@property (nonatomic, strong, readwrite) EXUpdatesUpdate * _Nullable launchedUpdate;
-@property (nonatomic, strong, readwrite) NSURL * _Nullable launchAssetUrl;
-@property (nonatomic, strong, readwrite) NSMutableDictionary * _Nullable assetFilesMap;
+@property (nullable, nonatomic, strong, readwrite) EXUpdatesUpdate *launchedUpdate;
+@property (nullable, nonatomic, strong, readwrite) NSURL *launchAssetUrl;
+@property (nullable, nonatomic, strong, readwrite) NSMutableDictionary *assetFilesMap;
 
 @property (nonatomic, strong) EXUpdatesFileDownloader *downloader;
 @property (nonatomic, copy) EXUpdatesAppLauncherCompletionBlock completion;
@@ -40,7 +40,7 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
   return self;
 }
 
-+ (EXUpdatesUpdate * _Nullable)launchableUpdateWithSelectionPolicy:(id<EXUpdatesSelectionPolicy>)selectionPolicy
++ (nullable EXUpdatesUpdate *)launchableUpdateWithSelectionPolicy:(id<EXUpdatesSelectionPolicy>)selectionPolicy
 {
   EXUpdatesDatabase *database = [EXUpdatesAppController sharedInstance].database;
   NSError *error;
@@ -126,14 +126,14 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
     // we couldn't copy the file from the embedded assets
     // so we need to attempt to download it
     _assetsToDownload++;
-    [self.downloader downloadFileFromURL:asset.url toPath:[assetLocalUrl path] successBlock:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response) {
+    [self.downloader downloadFileFromURL:asset.url toPath:[assetLocalUrl path] successBlock:^(NSData *data, NSURLResponse *response) {
       if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         asset.headers = ((NSHTTPURLResponse *)response).allHeaderFields;
       }
       asset.contentHash = [EXUpdatesUtils sha256WithData:data];
       asset.downloadTime = [NSDate date];
       [self _assetDownloadDidFinish:asset withLocalUrl:assetLocalUrl];
-    } errorBlock:^(NSError * _Nonnull error, NSURLResponse * _Nonnull response) {
+    } errorBlock:^(NSError *error, NSURLResponse *response) {
       if (asset.isLaunchAsset) {
         // save the error -- since this is the launch asset, the launcher will fail
         // so we want to propagate this error

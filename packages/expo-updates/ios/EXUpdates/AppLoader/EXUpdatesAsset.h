@@ -1,26 +1,30 @@
 //  Copyright © 2019 650 Industries. All rights reserved.
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface EXUpdatesAsset : NSObject
 
 /**
  * properties determined by asset source
  */
-@property (nonatomic, strong) NSURL * _Nonnull url;
-@property (nonatomic, strong) NSString * _Nonnull type;
-@property (nonatomic, strong) NSDictionary * _Nullable metadata;
-@property (nonatomic, strong) NSString * _Nullable mainBundleFilename; // used for embedded assets
+@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong) NSString *type;
+@property (nullable, nonatomic, strong) NSDictionary *metadata;
+@property (nullable, nonatomic, strong) NSString *mainBundleFilename; // used for embedded assets
 @property (nonatomic, assign) BOOL isLaunchAsset;
 
 /**
  * properties determined at runtime by updates implementation
  */
-@property (nonatomic, strong) NSDate * _Nullable downloadTime;
-@property (nonatomic, strong) NSString * _Nullable filename;
-@property (nonatomic, strong) NSString * _Nullable contentHash;
-@property (nonatomic, strong) NSDictionary * _Nullable headers;
+@property (nullable, nonatomic, strong) NSDate *downloadTime;
+@property (nullable, nonatomic, strong) NSString *filename;
+@property (nullable, nonatomic, strong) NSString *contentHash;
+@property (nullable, nonatomic, strong) NSDictionary *headers;
 
-@property (nonatomic, strong) NSString * _Nullable localAssetsKey;
+@property (nullable, nonatomic, strong) NSString *localAssetsKey;
 
-- (instancetype _Nonnull)initWithUrl:(NSURL * _Nonnull)url type:(NSString * _Nonnull)type;
+- (instancetype)initWithUrl:(NSURL *)url type:(NSString *)type;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -3,9 +3,11 @@
 #import <EXUpdates/EXUpdatesAsset.h>
 #import <EXUpdates/EXUpdatesUtils.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation EXUpdatesAsset
 
-- (instancetype)initWithUrl:(NSURL * _Nonnull)url type:(NSString * _Nonnull)type
+- (instancetype)initWithUrl:(NSURL *)url type:(NSString *)type
 {
   if (self = [super init]) {
     _url = url;
@@ -14,7 +16,7 @@
   return self;
 }
 
-- (NSString * _Nullable)localAssetsKey
+- (nullable NSString *)localAssetsKey
 {
   if (!_localAssetsKey) {
     NSString *remoteFilename = _url.lastPathComponent;
@@ -26,3 +28,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

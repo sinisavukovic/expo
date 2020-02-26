@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)updateWithId:(NSUUID *)updateId
     commitTime:(NSDate *)commitTime
 runtimeVersion:(NSString *)runtimeVersion
-      metadata:(NSDictionary * _Nullable)metadata
+      metadata:(nullable NSDictionary *)metadata
         status:(EXUpdatesUpdateStatus)status
           keep:(BOOL)keep
 {

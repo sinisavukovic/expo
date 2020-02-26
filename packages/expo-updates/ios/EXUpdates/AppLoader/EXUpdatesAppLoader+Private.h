@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startLoadingFromManifest:(EXUpdatesUpdate *)updateManifest;
 - (void)handleAssetDownloadAlreadyExists:(EXUpdatesAsset *)asset;
-- (void)handleAssetDownloadWithData:(NSData *)data response:(NSURLResponse * _Nullable)response asset:(EXUpdatesAsset *)asset;
+- (void)handleAssetDownloadWithData:(NSData *)data response:(nullable NSURLResponse *)response asset:(EXUpdatesAsset *)asset;
 - (void)handleAssetDownloadWithError:(NSError *)error asset:(EXUpdatesAsset *)asset;
 
 - (void)downloadAsset:(EXUpdatesAsset *)asset;

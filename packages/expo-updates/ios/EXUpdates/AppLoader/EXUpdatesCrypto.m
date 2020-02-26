@@ -57,10 +57,10 @@ static NSString * const kEXPublicKeyFilename = @"manifestPublicKey.pem";
     EXUpdatesFileDownloader *fileDownloader = [[EXUpdatesFileDownloader alloc] initWithURLSessionConfiguration:configuration];
     [fileDownloader downloadFileFromURL:[NSURL URLWithString:kEXPublicKeyUrl]
                                  toPath:[cachedPublicKeyUrl path]
-                           successBlock:^(NSData * _Nonnull publicKeyData, NSURLResponse * _Nonnull response) {
+                           successBlock:^(NSData *publicKeyData, NSURLResponse *response) {
                                           [[self class] verifyWithPublicKey:publicKeyData signature:signature signedString:data callback:successBlock];
                                         }
-                             errorBlock:^(NSError * _Nonnull error, NSURLResponse * _Nonnull response) {
+                             errorBlock:^(NSError *error, NSURLResponse *response) {
                                           errorBlock(error);
                                         }
     ];
@@ -98,7 +98,7 @@ static NSString * const kEXPublicKeyFilename = @"manifestPublicKey.pem";
  *  Here is the Apple doc for this black hole:
  *  https://developer.apple.com/library/prerelease/content/documentation/Security/Conceptual/CertKeyTrustProgGuide/iPhone_Tasks/iPhone_Tasks.html#//apple_ref/doc/uid/TP40001358-CH208-SW13
  */
-+ (_Nullable SecKeyRef)keyRefFromPEMData:(NSData *)pemData
++ (nullable SecKeyRef)keyRefFromPEMData:(NSData *)pemData
 {
   NSString *pemString = [[NSString alloc] initWithData:pemData encoding:NSUTF8StringEncoding];
 
@@ -185,7 +185,7 @@ static NSString * const kEXPublicKeyFilename = @"manifestPublicKey.pem";
   return keyRef;
 }
 
-+ (BOOL)verifyRSASHA256SignedData:(NSData *)signedData signatureData:(NSData *)signatureData publicKey:(_Nullable SecKeyRef)publicKey
++ (BOOL)verifyRSASHA256SignedData:(NSData *)signedData signatureData:(NSData *)signatureData publicKey:(nullable SecKeyRef)publicKey
 {
   if (!publicKey) {
     return NO;
