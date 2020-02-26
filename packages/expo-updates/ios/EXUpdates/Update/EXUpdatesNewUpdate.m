@@ -1,15 +1,15 @@
 //  Copyright © 2019 650 Industries. All rights reserved.
 
 #import <EXUpdates/EXUpdatesAppController.h>
-#import <EXUpdates/EXUpdatesAppLoaderEmbedded.h>
+#import <EXUpdates/EXUpdatesEmbeddedAppLoader.h>
 #import <EXUpdates/EXUpdatesConfig.h>
 #import <EXUpdates/EXUpdatesUpdate+Private.h>
-#import <EXUpdates/EXUpdatesUpdateNew.h>
+#import <EXUpdates/EXUpdatesNewUpdate.h>
 #import <EXUpdates/EXUpdatesUtils.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation EXUpdatesUpdateNew
+@implementation EXUpdatesNewUpdate
 
 + (EXUpdatesUpdate *)updateWithNewManifest:(NSDictionary *)manifest
 {

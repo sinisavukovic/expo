@@ -1,7 +1,7 @@
 // Copyright 2019 650 Industries. All rights reserved.
 
 #import <EXUpdates/EXUpdatesAppController.h>
-#import <EXUpdates/EXUpdatesAppLoaderRemote.h>
+#import <EXUpdates/EXUpdatesRemoteAppLoader.h>
 #import <EXUpdates/EXUpdatesConfig.h>
 #import <EXUpdates/EXUpdatesDatabase.h>
 #import <EXUpdates/EXUpdatesFileDownloader.h>
@@ -100,7 +100,7 @@ UM_EXPORT_METHOD_AS(fetchUpdateAsync,
   _fetchUpdateResolver = resolve;
   _fetchUpdateRejecter = reject;
 
-  EXUpdatesAppLoaderRemote *remoteAppLoader = [[EXUpdatesAppLoaderRemote alloc] init];
+  EXUpdatesRemoteAppLoader *remoteAppLoader = [[EXUpdatesRemoteAppLoader alloc] init];
   remoteAppLoader.delegate = self;
   [remoteAppLoader loadUpdateFromUrl:[EXUpdatesConfig sharedInstance].remoteUrl];
 }

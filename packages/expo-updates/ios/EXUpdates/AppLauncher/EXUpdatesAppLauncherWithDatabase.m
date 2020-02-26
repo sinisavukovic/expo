@@ -2,7 +2,7 @@
 
 #import <EXUpdates/EXUpdatesAppController.h>
 #import <EXUpdates/EXUpdatesAppLauncherWithDatabase.h>
-#import <EXUpdates/EXUpdatesAppLoaderEmbedded.h>
+#import <EXUpdates/EXUpdatesEmbeddedAppLoader.h>
 #import <EXUpdates/EXUpdatesDatabase.h>
 #import <EXUpdates/EXUpdatesFileDownloader.h>
 #import <EXUpdates/EXUpdatesUtils.h>
@@ -100,7 +100,7 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
   if (!assetFileExists) {
     // something has gone wrong, we're missing the asset
     // first check to see if a copy is embedded in the binary
-    EXUpdatesUpdate *embeddedManifest = [EXUpdatesAppLoaderEmbedded embeddedManifest];
+    EXUpdatesUpdate *embeddedManifest = [EXUpdatesEmbeddedAppLoader embeddedManifest];
     if (embeddedManifest) {
       EXUpdatesAsset *matchingAsset;
       for (EXUpdatesAsset *embeddedAsset in embeddedManifest.assets) {

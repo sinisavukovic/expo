@@ -1,7 +1,7 @@
 //  Copyright © 2019 650 Industries. All rights reserved.
 
 #import <EXUpdates/EXUpdatesAppController.h>
-#import <EXUpdates/EXUpdatesAppLoaderEmbedded.h>
+#import <EXUpdates/EXUpdatesEmbeddedAppLoader.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -10,7 +10,7 @@ NSString * const kEXUpdatesEmbeddedManifestType = @"json";
 NSString * const kEXUpdatesEmbeddedBundleFilename = @"shell-app";
 NSString * const kEXUpdatesEmbeddedBundleFileType = @"bundle";
 
-@implementation EXUpdatesAppLoaderEmbedded
+@implementation EXUpdatesEmbeddedAppLoader
 
 + (EXUpdatesUpdate * _Nullable)embeddedManifest
 {
@@ -61,7 +61,7 @@ NSString * const kEXUpdatesEmbeddedBundleFileType = @"bundle";
 
 - (void)loadUpdateFromUrl:(NSURL *)url
 {
-  @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Should not call EXUpdatesAppLoaderEmbedded#loadUpdateFromUrl" userInfo:nil];
+  @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Should not call EXUpdatesEmbeddedAppLoader#loadUpdateFromUrl" userInfo:nil];
 }
 
 @end

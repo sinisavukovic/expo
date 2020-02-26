@@ -4,8 +4,8 @@
 #import <EXUpdates/EXUpdatesConfig.h>
 #import <EXUpdates/EXUpdatesDatabase.h>
 #import <EXUpdates/EXUpdatesUpdate+Private.h>
-#import <EXUpdates/EXUpdatesUpdateLegacy.h>
-#import <EXUpdates/EXUpdatesUpdateNew.h>
+#import <EXUpdates/EXUpdatesLegacyUpdate.h>
+#import <EXUpdates/EXUpdatesNewUpdate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,9 +48,9 @@ runtimeVersion:(NSString *)runtimeVersion
 + (instancetype)updateWithManifest:(NSDictionary *)manifest
 {
   if ([EXUpdatesConfig sharedInstance].usesLegacyManifest) {
-    return [EXUpdatesUpdateLegacy updateWithLegacyManifest:manifest];
+    return [EXUpdatesLegacyUpdate updateWithLegacyManifest:manifest];
   } else {
-    return [EXUpdatesUpdateNew updateWithNewManifest:manifest];
+    return [EXUpdatesNewUpdate updateWithNewManifest:manifest];
   }
 }
 

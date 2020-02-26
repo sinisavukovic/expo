@@ -9,7 +9,7 @@ extern NSString * const kEXUpdatesEmbeddedManifestType;
 extern NSString * const kEXUpdatesEmbeddedBundleFilename;
 extern NSString * const kEXUpdatesEmbeddedBundleFileType;
 
-@interface EXUpdatesAppLoaderEmbedded : EXUpdatesAppLoader
+@interface EXUpdatesEmbeddedAppLoader : EXUpdatesAppLoader
 
 + (EXUpdatesUpdate * _Nullable)embeddedManifest;
 - (void)loadUpdateFromEmbeddedManifest;

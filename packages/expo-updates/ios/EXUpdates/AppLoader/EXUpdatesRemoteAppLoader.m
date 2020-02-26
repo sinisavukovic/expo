@@ -1,19 +1,19 @@
 //  Copyright © 2019 650 Industries. All rights reserved.
 
 #import <EXUpdates/EXUpdatesAppController.h>
-#import <EXUpdates/EXUpdatesAppLoaderRemote.h>
+#import <EXUpdates/EXUpdatesRemoteAppLoader.h>
 #import <EXUpdates/EXUpdatesCrypto.h>
 #import <EXUpdates/EXUpdatesFileDownloader.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EXUpdatesAppLoaderRemote ()
+@interface EXUpdatesRemoteAppLoader ()
 
 @property (nonatomic, strong) EXUpdatesFileDownloader *downloader;
 
 @end
 
-@implementation EXUpdatesAppLoaderRemote
+@implementation EXUpdatesRemoteAppLoader
 
 - (instancetype)init
 {

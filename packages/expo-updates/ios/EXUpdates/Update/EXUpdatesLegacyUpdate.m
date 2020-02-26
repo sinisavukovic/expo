@@ -1,10 +1,10 @@
 //  Copyright © 2019 650 Industries. All rights reserved.
 
 #import <EXUpdates/EXUpdatesAppController.h>
-#import <EXUpdates/EXUpdatesAppLoaderEmbedded.h>
+#import <EXUpdates/EXUpdatesEmbeddedAppLoader.h>
 #import <EXUpdates/EXUpdatesConfig.h>
 #import <EXUpdates/EXUpdatesUpdate+Private.h>
-#import <EXUpdates/EXUpdatesUpdateLegacy.h>
+#import <EXUpdates/EXUpdatesLegacyUpdate.h>
 #import <EXUpdates/EXUpdatesUtils.h>
 #import <React/RCTConvert.h>
 
@@ -15,7 +15,7 @@ static NSString * const kEXUpdatesExpoIoDomain = @"expo.io";
 static NSString * const kEXUpdatesExpHostDomain = @"exp.host";
 static NSString * const kEXUpdatesExpoTestDomain = @"expo.test";
 
-@implementation EXUpdatesUpdateLegacy
+@implementation EXUpdatesLegacyUpdate
 
 + (EXUpdatesUpdate *)updateWithLegacyManifest:(NSDictionary *)manifest
 {

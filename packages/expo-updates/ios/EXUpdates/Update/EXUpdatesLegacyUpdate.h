@@ -4,9 +4,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EXUpdatesUpdateNew : NSObject
+@interface EXUpdatesLegacyUpdate : NSObject
 
-+ (EXUpdatesUpdate *)updateWithNewManifest:(NSDictionary *)manifest;
++ (EXUpdatesUpdate *)updateWithLegacyManifest:(NSDictionary *)manifest;
 
 @end
 

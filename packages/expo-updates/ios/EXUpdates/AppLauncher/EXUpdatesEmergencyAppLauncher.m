@@ -1,14 +1,14 @@
 //  Copyright © 2019 650 Industries. All rights reserved.
 
 #import <EXUpdates/EXUpdatesAsset.h>
-#import <EXUpdates/EXUpdatesAppLauncherEmergency.h>
-#import <EXUpdates/EXUpdatesAppLoaderEmbedded.h>
+#import <EXUpdates/EXUpdatesEmergencyAppLauncher.h>
+#import <EXUpdates/EXUpdatesEmbeddedAppLoader.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString * const kEXUpdatesErrorLogFile = @"expo-error.log";
 
-@interface EXUpdatesAppLauncherEmergency ()
+@interface EXUpdatesEmergencyAppLauncher ()
 
 @property (nonatomic, strong, readwrite) EXUpdatesUpdate * _Nullable launchedUpdate;
 @property (nonatomic, strong, readwrite) NSURL * _Nullable launchAssetUrl;
@@ -16,11 +16,11 @@ static NSString * const kEXUpdatesErrorLogFile = @"expo-error.log";
 
 @end
 
-@implementation EXUpdatesAppLauncherEmergency
+@implementation EXUpdatesEmergencyAppLauncher
 
 - (void)launchUpdateWithFatalError:(NSError *)error;
 {
-  _launchedUpdate = [EXUpdatesAppLoaderEmbedded embeddedManifest];
+  _launchedUpdate = [EXUpdatesEmbeddedAppLoader embeddedManifest];
   if (_launchedUpdate) {
     _launchAssetUrl = [[NSBundle mainBundle] URLForResource:kEXUpdatesEmbeddedBundleFilename withExtension:kEXUpdatesEmbeddedBundleFileType];
     

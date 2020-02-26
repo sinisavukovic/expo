@@ -3,10 +3,10 @@
 #import <EXUpdates/EXUpdatesConfig.h>
 #import <EXUpdates/EXUpdatesAppController.h>
 #import <EXUpdates/EXUpdatesAppLauncher.h>
-#import <EXUpdates/EXUpdatesAppLauncherEmergency.h>
+#import <EXUpdates/EXUpdatesEmergencyAppLauncher.h>
 #import <EXUpdates/EXUpdatesAppLauncherWithDatabase.h>
-#import <EXUpdates/EXUpdatesAppLoaderEmbedded.h>
-#import <EXUpdates/EXUpdatesAppLoaderRemote.h>
+#import <EXUpdates/EXUpdatesEmbeddedAppLoader.h>
+#import <EXUpdates/EXUpdatesRemoteAppLoader.h>
 #import <EXUpdates/EXUpdatesReaper.h>
 #import <EXUpdates/EXUpdatesSelectionPolicyNewest.h>
 #import <SystemConfiguration/SystemConfiguration.h>
@@ -25,8 +25,8 @@ static NSString * const kEXUpdatesAppControllerErrorDomain = @"EXUpdatesAppContr
 @property (nonatomic, readwrite, strong) id<EXUpdatesAppLauncher> launcher;
 @property (nonatomic, readwrite, strong) EXUpdatesDatabase *database;
 @property (nonatomic, readwrite, strong) id<EXUpdatesSelectionPolicy> selectionPolicy;
-@property (nonatomic, readwrite, strong) EXUpdatesAppLoaderEmbedded *embeddedAppLoader;
-@property (nonatomic, readwrite, strong) EXUpdatesAppLoaderRemote *remoteAppLoader;
+@property (nonatomic, readwrite, strong) EXUpdatesEmbeddedAppLoader *embeddedAppLoader;
+@property (nonatomic, readwrite, strong) EXUpdatesRemoteAppLoader *remoteAppLoader;
 
 @property (nonatomic, readwrite, strong) NSURL *updatesDirectory;
 @property (nonatomic, readwrite, assign) BOOL isEnabled;
@@ -103,7 +103,7 @@ static NSString * const kEXUpdatesAppControllerErrorDomain = @"EXUpdatesAppContr
         [self _maybeFinish];
 
         if (!self->_remoteAppLoader && [[self class] _shouldCheckForUpdate]) {
-          self->_remoteAppLoader = [[EXUpdatesAppLoaderRemote alloc] init];
+          self->_remoteAppLoader = [[EXUpdatesRemoteAppLoader alloc] init];
           self->_remoteAppLoader.delegate = self;
           [self->_remoteAppLoader loadUpdateFromUrl:[EXUpdatesConfig sharedInstance].remoteUrl];
         } else {
@@ -243,9 +243,9 @@ static NSString * const kEXUpdatesAppControllerErrorDomain = @"EXUpdatesAppContr
 
 - (void)_maybeLoadEmbeddedUpdate
 {
-  if ([_selectionPolicy shouldLoadNewUpdate:[EXUpdatesAppLoaderEmbedded embeddedManifest]
+  if ([_selectionPolicy shouldLoadNewUpdate:[EXUpdatesEmbeddedAppLoader embeddedManifest]
                          withLaunchedUpdate:[EXUpdatesAppLauncherWithDatabase launchableUpdateWithSelectionPolicy:_selectionPolicy]]) {
-    _embeddedAppLoader = [[EXUpdatesAppLoaderEmbedded alloc] init];
+    _embeddedAppLoader = [[EXUpdatesEmbeddedAppLoader alloc] init];
     [_embeddedAppLoader loadUpdateFromEmbeddedManifest];
   }
 }
@@ -280,7 +280,7 @@ static NSString * const kEXUpdatesAppControllerErrorDomain = @"EXUpdatesAppContr
   _isEmergencyLaunch = YES;
   _hasLaunched = YES;
 
-  EXUpdatesAppLauncherEmergency *launcher = [[EXUpdatesAppLauncherEmergency alloc] init];
+  EXUpdatesEmergencyAppLauncher *launcher = [[EXUpdatesEmergencyAppLauncher alloc] init];
   _launcher = launcher;
   [launcher launchUpdateWithFatalError:error];
 

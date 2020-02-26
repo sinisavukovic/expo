@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EXUpdatesAppLoaderRemote : EXUpdatesAppLoader
+@interface EXUpdatesRemoteAppLoader : EXUpdatesAppLoader
 
 @end
 
