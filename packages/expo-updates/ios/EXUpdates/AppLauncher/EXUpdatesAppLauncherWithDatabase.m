@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) EXUpdatesAppLauncherCompletionBlock completion;
 
 @property (nonatomic, strong) NSLock *lock;
-@property (nonatomic, assign) int assetsToDownload;
-@property (nonatomic, assign) int assetsToDownloadFinished;
+@property (nonatomic, assign) NSUInteger assetsToDownload;
+@property (nonatomic, assign) NSUInteger assetsToDownloadFinished;
 
 @property (nonatomic, strong) NSError *launchAssetError;
 
