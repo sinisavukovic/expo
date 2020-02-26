@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
   NSURL *bundleUrl = [NSURL URLWithString:bundleUrlString];
   NSAssert(bundleUrl, @"bundleUrl should be a valid URL");
 
-  NSMutableArray<EXUpdatesAsset *>*processedAssets = [NSMutableArray new];
+  NSMutableArray<EXUpdatesAsset *> *processedAssets = [NSMutableArray new];
   EXUpdatesAsset *jsBundleAsset = [[EXUpdatesAsset alloc] initWithUrl:bundleUrl type:kEXUpdatesEmbeddedBundleFileType];
   jsBundleAsset.isLaunchAsset = YES;
   jsBundleAsset.mainBundleFilename = kEXUpdatesEmbeddedBundleFilename;

@@ -157,7 +157,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
               error:error];
 }
 
-- (void)addNewAssets:(NSArray<EXUpdatesAsset *>*)assets toUpdateWithId:(NSUUID *)updateId error:(NSError ** _Nullable)error
+- (void)addNewAssets:(NSArray<EXUpdatesAsset *> *)assets toUpdateWithId:(NSUUID *)updateId error:(NSError ** _Nullable)error
 {
   sqlite3_exec(_db, "BEGIN;", NULL, NULL, NULL);
 
@@ -210,7 +210,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   sqlite3_exec(_db, "BEGIN;", NULL, NULL, NULL);
   
   NSString * const assetSelectSql = @"SELECT id FROM assets WHERE url = ?1 LIMIT 1;";
-  NSArray<NSDictionary *>* rows = [self _executeSql:assetSelectSql withArgs:@[asset.url] error:error];
+  NSArray<NSDictionary *> *rows = [self _executeSql:assetSelectSql withArgs:@[asset.url] error:error];
   if (!rows || ![rows count]) {
     success = NO;
   } else {
@@ -272,7 +272,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   [self _executeSql:sql withArgs:@[updateId] error:error];
 }
 
-- (nullable NSArray<NSDictionary *>*)markUnusedAssetsForDeletionWithError:(NSError ** _Nullable)error
+- (nullable NSArray<NSDictionary *> *)markUnusedAssetsForDeletionWithError:(NSError ** _Nullable)error
 {
   // the simplest way to mark the assets we want to delete
   // is to mark all assets for deletion, then go back and unmark
@@ -305,9 +305,9 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   return [self _executeSql:selectSql withArgs:nil error:error];
 }
 
-- (void)deleteAssetsWithIds:(NSArray<NSNumber *>*)assetIds error:(NSError ** _Nullable)error
+- (void)deleteAssetsWithIds:(NSArray<NSNumber *> *)assetIds error:(NSError ** _Nullable)error
 {
-  NSMutableArray<NSString *>*assetIdStrings = [NSMutableArray new];
+  NSMutableArray<NSString *> *assetIdStrings = [NSMutableArray new];
   for (NSNumber *assetId in assetIds) {
     [assetIdStrings addObject:[assetId stringValue]];
   }
@@ -325,33 +325,33 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
 
 # pragma mark - select
 
-- (nullable NSArray<EXUpdatesUpdate *>*)allUpdatesWithError:(NSError ** _Nullable)error
+- (nullable NSArray<EXUpdatesUpdate *> *)allUpdatesWithError:(NSError ** _Nullable)error
 {
   NSString * const sql = @"SELECT * FROM updates;";
-  NSArray<NSDictionary *>* rows = [self _executeSql:sql withArgs:nil error:error];
+  NSArray<NSDictionary *> *rows = [self _executeSql:sql withArgs:nil error:error];
   if (!rows) {
     return nil;
   }
 
-  NSMutableArray<EXUpdatesUpdate *>*launchableUpdates = [NSMutableArray new];
+  NSMutableArray<EXUpdatesUpdate *> *launchableUpdates = [NSMutableArray new];
   for (NSDictionary *row in rows) {
     [launchableUpdates addObject:[self _updateWithRow:row]];
   }
   return launchableUpdates;
 }
 
-- (nullable NSArray<EXUpdatesUpdate *>*)launchableUpdatesWithError:(NSError ** _Nullable)error
+- (nullable NSArray<EXUpdatesUpdate *> *)launchableUpdatesWithError:(NSError ** _Nullable)error
 {
   NSString *sql = [NSString stringWithFormat:@"SELECT *\
   FROM updates\
   WHERE status = %li;", (long)EXUpdatesUpdateStatusReady];
 
-  NSArray<NSDictionary *>* rows = [self _executeSql:sql withArgs:nil error:error];
+  NSArray<NSDictionary *> *rows = [self _executeSql:sql withArgs:nil error:error];
   if (!rows) {
     return nil;
   }
   
-  NSMutableArray<EXUpdatesUpdate *>*launchableUpdates = [NSMutableArray new];
+  NSMutableArray<EXUpdatesUpdate *> *launchableUpdates = [NSMutableArray new];
   for (NSDictionary *row in rows) {
     [launchableUpdates addObject:[self _updateWithRow:row]];
   }
@@ -364,7 +364,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   FROM updates\
   WHERE updates.id = ?1;";
 
-  NSArray<NSDictionary *>* rows = [self _executeSql:sql withArgs:@[updateId] error:error];
+  NSArray<NSDictionary *> *rows = [self _executeSql:sql withArgs:@[updateId] error:error];
   if (!rows || ![rows count]) {
     return nil;
   } else {
@@ -379,7 +379,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   INNER JOIN assets ON updates.launch_asset_id = assets.id\
   WHERE updates.id = ?1;";
 
-  NSArray<NSDictionary *>*rows = [self _executeSql:sql withArgs:@[updateId] error:error];
+  NSArray<NSDictionary *> *rows = [self _executeSql:sql withArgs:@[updateId] error:error];
   if (!rows || ![rows count]) {
     return nil;
   } else {
@@ -397,7 +397,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   }
 }
 
-- (nullable NSArray<EXUpdatesAsset *>*)assetsWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error
+- (nullable NSArray<EXUpdatesAsset *> *)assetsWithUpdateId:(NSUUID *)updateId error:(NSError ** _Nullable)error
 {
   NSString * const sql = @"SELECT asset_id, url, type, relative_path, assets.metadata, launch_asset_id\
   FROM assets\
@@ -405,12 +405,12 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
   INNER JOIN updates ON updates_assets.update_id = updates.id\
   WHERE updates.id = ?1;";
 
-  NSArray<NSDictionary *>*rows = [self _executeSql:sql withArgs:@[updateId] error:error];
+  NSArray<NSDictionary *> *rows = [self _executeSql:sql withArgs:@[updateId] error:error];
   if (!rows) {
     return nil;
   }
 
-  NSMutableArray<EXUpdatesAsset *>*assets = [NSMutableArray arrayWithCapacity:rows.count];
+  NSMutableArray<EXUpdatesAsset *> *assets = [NSMutableArray arrayWithCapacity:rows.count];
 
   for (NSDictionary *row in rows) {
     id launchAssetId = row[@"launch_asset_id"];
@@ -430,7 +430,7 @@ static NSString * const kEXUpdatesDatabaseFilename = @"expo.db";
 
 # pragma mark - helper methods
 
-- (nullable NSArray<NSDictionary *>*)_executeSql:(NSString *)sql withArgs:(nullable NSArray *)args error:(NSError ** _Nullable)error
+- (nullable NSArray<NSDictionary *> *)_executeSql:(NSString *)sql withArgs:(nullable NSArray *)args error:(NSError ** _Nullable)error
 {
   NSAssert(_db, @"Missing database handle");
   sqlite3_stmt *stmt;

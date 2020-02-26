@@ -10,10 +10,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EXUpdatesAppLoader ()
 
-@property (nonatomic, strong) NSMutableArray<EXUpdatesAsset *>* assetQueue;
-@property (nonatomic, strong) NSMutableArray<EXUpdatesAsset *>* erroredAssets;
-@property (nonatomic, strong) NSMutableArray<EXUpdatesAsset *>* finishedAssets;
-@property (nonatomic, strong) NSMutableArray<EXUpdatesAsset *>* existingAssets;
+@property (nonatomic, strong) NSMutableArray<EXUpdatesAsset *> *assetQueue;
+@property (nonatomic, strong) NSMutableArray<EXUpdatesAsset *> *erroredAssets;
+@property (nonatomic, strong) NSMutableArray<EXUpdatesAsset *> *finishedAssets;
+@property (nonatomic, strong) NSMutableArray<EXUpdatesAsset *> *existingAssets;
 
 @property (nonatomic, strong) NSLock *arrayLock;
 

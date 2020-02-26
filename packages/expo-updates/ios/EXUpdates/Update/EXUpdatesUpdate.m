@@ -54,7 +54,7 @@ runtimeVersion:(NSString *)runtimeVersion
   }
 }
 
-- (NSArray<EXUpdatesAsset *>*)assets
+- (NSArray<EXUpdatesAsset *> *)assets
 {
   if (!_assets) {
     EXUpdatesDatabase *db = [EXUpdatesAppController sharedInstance].database;

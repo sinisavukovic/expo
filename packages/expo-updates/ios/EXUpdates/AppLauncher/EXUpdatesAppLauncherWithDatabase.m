@@ -44,7 +44,7 @@ static NSString * const kEXUpdatesAppLauncherErrorDomain = @"AppLauncher";
 {
   EXUpdatesDatabase *database = [EXUpdatesAppController sharedInstance].database;
   NSError *error;
-  NSArray<EXUpdatesUpdate *>* launchableUpdates = [database launchableUpdatesWithError:&error];
+  NSArray<EXUpdatesUpdate *> *launchableUpdates = [database launchableUpdatesWithError:&error];
   if (!launchableUpdates) {
     NSLog(@"Could not select updates from database: %@", error.localizedDescription);
     return nil;

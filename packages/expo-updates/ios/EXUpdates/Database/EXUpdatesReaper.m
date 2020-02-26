@@ -25,13 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
     return;
   }
 
-  NSArray<EXUpdatesUpdate *>*allUpdates = [database allUpdatesWithError:&error];
+  NSArray<EXUpdatesUpdate *> *allUpdates = [database allUpdatesWithError:&error];
   if (!allUpdates || error) {
     NSLog(@"Error reaping updates: %@", error.localizedDescription);
     [database.lock unlock];
     return;
   }
-  NSArray<EXUpdatesUpdate *>*updatesToDelete = [selectionPolicy updatesToDeleteWithLaunchedUpdate:launchedUpdate updates:allUpdates];
+  NSArray<EXUpdatesUpdate *> *updatesToDelete = [selectionPolicy updatesToDeleteWithLaunchedUpdate:launchedUpdate updates:allUpdates];
   for (EXUpdatesUpdate *update in updatesToDelete) {
     [database markUpdateForDeletionWithId:update.updateId error:&error];
     if (error) {
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
       return;
     }
   }
-  NSArray<NSDictionary *>* assetsForDeletion = [database markUnusedAssetsForDeletionWithError:&error];
+  NSArray<NSDictionary *> *assetsForDeletion = [database markUnusedAssetsForDeletionWithError:&error];
   if (error) {
     NSLog(@"Error reaping updates: %@", error.localizedDescription);
     [database.lock unlock];
@@ -48,8 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
   }
   NSLog(@"Marked updates and assets for deletion in %f ms", [beginMarkForDeletion timeIntervalSinceNow] * -1000);
 
-  NSMutableArray<NSNumber *>* deletedAssets = [NSMutableArray new];
-  NSMutableArray<NSDictionary *>* erroredAssets = [NSMutableArray new];
+  NSMutableArray<NSNumber *> *deletedAssets = [NSMutableArray new];
+  NSMutableArray<NSDictionary *> *erroredAssets = [NSMutableArray new];
 
   NSDate *beginDeleteAssets = [NSDate date];
   for (NSDictionary *asset in assetsForDeletion) {
